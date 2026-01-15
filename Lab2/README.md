@@ -1,4 +1,4 @@
-# Lab 2: Phát hiện và điều tấn công Brute-Force dịch vụ RDP trên Windows
+# Lab 2: Phát hiện và điều tra tấn công Brute-Force dịch vụ RDP trên Windows
 
 # I. Mục tiêu
 

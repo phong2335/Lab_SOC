@@ -12,10 +12,6 @@
 
 # III. Tiến hành mô phỏng cuộc tấn công và phân tích
 
-```
-index=sysmon | stats count by sourcetype
-```
-
 ## 1. Trên máy kali, sử dụng hydra để tấn công brute force vào máy windows bằng dịch vụ rdp
 
 - Cú pháp cơ bản của hydra

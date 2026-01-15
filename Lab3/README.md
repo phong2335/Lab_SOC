@@ -15,6 +15,7 @@
 
 - Registry có 2 thành phần chính: **key** và **value**. Trong đó key giống như thư mục. Một key có thể chứa thêm nhiều key khác (thư mục cha, thư mục con) hoặc chứa các value (giá trị, có thể là file text nhưng chỉ 1 dòng đơn giản).
 - Đường dẫn đi từ key cha sang key con hơi giống với đường dẫn của thư mục trong Windows và tên của nó không quan trọng có viết hoa hay không.
+
   ![windows-registry-la-gi-dung-ra-sao-luu-y-khi-chi.jpg](images/3d8ca774-6b56-4b0c-9547-8c77ce42327c.png)
 - Có tất cả **7 root key** trong Windows, bao gồm:
   - HKEY_LOCAL_MACHINE hoặc viết tắt là HKLM - hệ thống

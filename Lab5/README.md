@@ -309,7 +309,7 @@ nikto -h http://192.168.60.40
 - MAPPING MITTRE ATT&CK
   - Network Service Discovery: T1046
   - Tức là khám phá khi đang trong mạng nội bộ.
-  - Nếu là scan từ mạng ngoài vào thì [\*\*Reconnaissance](https://attack.mitre.org/tactics/TA0043) - Vulnerability Scanning (T1595.002)\*\*.
+  - Nếu là scan từ mạng ngoài vào thì **[Reconnaissance](https://attack.mitre.org/tactics/TA0043)** - Vulnerability Scanning (T1595.002).
 
 ## 2. Phát hiện Nikto Scan
 

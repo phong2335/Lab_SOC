@@ -1,4 +1,4 @@
-# Lab 2: Phát hiện và điều tấn công Brute-Force dịch vụ RDP trên Windows
+# Lab 2: Phát hiện và điều tra tấn công Brute-Force dịch vụ RDP trên Windows
 
 # I. Mục tiêu
 
@@ -11,10 +11,6 @@
 - RDP (Remote Desktop Protocol) là giao thức của Microsoft dùng để điều khiển máy Windows từ xa (nhìn màn hình, dùng chuột/phím như ngồi trước máy).
 
 # III. Tiến hành mô phỏng cuộc tấn công và phân tích
-
-```
-index=sysmon | stats count by sourcetype
-```
 
 ## 1. Trên máy kali, sử dụng hydra để tấn công brute force vào máy windows bằng dịch vụ rdp
 
@@ -253,10 +249,10 @@ index=sysmon | stats count by sourcetype
 
 MITRE ATT&CK
 
-- [\*\*Credential Access](https://attack.mitre.org/tactics/TA0006)\*\* – Brute Force - T1110
+- **[Credential Access](https://attack.mitre.org/tactics/TA0006)** – Brute Force - T1110
 - **[Lateral Movement](https://attack.mitre.org/tactics/TA0008)** – Remote Services (RDP) - **T1021.001**
-- [\*\*Initial Access](https://attack.mitre.org/tactics/TA0001)** - External Remote Services - \*\***T1133
-- [\*\*Initial Access](https://attack.mitre.org/tactics/TA0001)** – Valid Accounts (dùng tài khoản hợp lệ sau khi brute force) - **T1078\*\*
+- **[Initial Access](https://attack.mitre.org/tactics/TA0001)** - External Remote Services - \*\***T1133
+- **[Initial Access](https://attack.mitre.org/tactics/TA0001)** – Valid Accounts (dùng tài khoản hợp lệ sau khi brute force) - **T1078\*\*
 
 ### 4. RESPONSE & RECOMMENDATION
 

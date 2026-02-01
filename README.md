@@ -29,3 +29,7 @@
 ---
 
 - [Lab 7](./Lab7/): Phát hiện và điều các tác vụ lên lịch đáng ngờ trên Windows
+
+---
+
+- [Lab 7](./Lab7/): Theo dõi tính Integrity cho các thư mục nhạy cảm trên Windows

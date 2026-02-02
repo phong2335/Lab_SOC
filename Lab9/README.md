@@ -1,4 +1,4 @@
-# Lab 9: Theo dõi tính Integrity cho các tệp nhạy cảm trên Linux
+# Lab 9: Theo dõi tính Integrity cho các thư  nhạy cảm trên Linux
 
 # I. Mục tiêu
 

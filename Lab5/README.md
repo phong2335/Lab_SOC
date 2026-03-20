@@ -2,7 +2,7 @@
 
 # I. Mục tiêu
 
-- Mục tiêu của lab này là mô phỏng hệ thống SOC giám sát – phát hiện – ghi nhận – phân tích các hành vi bất thường/xâm nhập trong mạng nội bộ bằng Suricata (NIDS/NSM) và Splunk (SIEM). Thực hiện các hành vi tấn công mạng như quét cổng dịch vụ, HTTP Burst, reverse shell,…
+- Mục tiêu của lab này là mô phỏng hệ thống SOC giám sát – phát hiện – ghi nhận – phân tích các hành vi bất thường/xâm nhập trong mạng nội bộ bằng Suricata và Splunk. Thực hiện các hành vi tấn công mạng như quét cổng dịch vụ, HTTP Burst, reverse shell,…
 
 # II. Sơ đồ mạng, môi trường và công cụ
 

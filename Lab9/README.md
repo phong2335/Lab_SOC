@@ -1,4 +1,4 @@
-# Lab 9: Theo dõi tính Integrity cho các thư  nhạy cảm trên Linux
+# Lab 9: Theo dõi tính Integrity cho các thư mục nhạy cảm trên Linux
 
 # I. Mục tiêu
 
@@ -50,7 +50,7 @@ sudo systemctl status auditd
 sudo nano /etc/audit/rules.d/audit.rules
 ```
 
-1. Thêm luật sau để giám sát thư mục `/etc/` 
+2. Thêm luật sau để giám sát thư mục `/etc/` 
 
 ```bash
 -w /etc/ -p wa -k file_integrity
@@ -63,7 +63,7 @@ sudo nano /etc/audit/rules.d/audit.rules
     
     ![image.png](images/image%201.png)
     
-1. Áp dụng luật 
+3. Áp dụng luật 
 
 ```bash
 sudo service auditd restart
@@ -78,23 +78,23 @@ sudo auditctl -l #list các quy tắc
 2. Sửa file cấu hình `inputs.conf` để Splunk Forwarder theo dõi log của auditd và gửi tới Splunk Server
 - Mở file `inputs.conf`
 
-```bash
-sudo nano /opt/splunkforwarder/etc/system/local/inputs.conf
-```
+    ```bash
+    sudo nano /opt/splunkforwarder/etc/system/local/inputs.conf
+    ```
 
 - Thêm dòng sau
 
-```bash
-[monitor:///var/log/audit/audit.log]
-sourcetype = auditd
-index = linux_audit
-```
+    ```bash
+    [monitor:///var/log/audit/audit.log]
+    sourcetype = auditd
+    index = linux_audit
+    ```
 
 - Khởi động lại Spunk Forwarder
 
-```bash
-sudo /opt/splunkforwarder/bin/splunk restart
-```
+    ```bash
+    sudo /opt/splunkforwarder/bin/splunk restart
+    ```
 
 ## 4. Tải “**Splunk Add-on for Unix and Linux”** trên Splunk để dễ đọc log của Auditd vì log Auditd rất khó đọc
 

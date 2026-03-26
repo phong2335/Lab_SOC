@@ -2,7 +2,7 @@
 
 ## I. Mục tiêu
 
-- Mục tiêu của lab này là phát hiện và điều tra và ứng phó với các Schedule Task đáng ngờ trên Windows, có thể được sử dụng cho mục đích persistence. Sử dụng Sysmon và Splunk để giám sát và phân tích log.
+- Mục tiêu của lab này là phát hiện, điều tra và ứng phó với các Schedule Task đáng ngờ trên Windows, có thể được sử dụng cho mục đích Persistence. Sử dụng Sysmon và Splunk để giám sát và phân tích log.
 
 ## II. Sơ đồ mạng, môi trường và công cụ
 

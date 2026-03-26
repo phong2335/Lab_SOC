@@ -8,11 +8,11 @@
 
 ![image.png](images/image.png)
 
-- RDP (Remote Desktop Protocol) là giao thức của Microsoft dùng để điều khiển máy Windows từ xa (nhìn màn hình, dùng chuột/phím như ngồi trước máy).
+- RDP (Remote Desktop Protocol) là giao thức của Microsoft dùng để điều khiển máy Windows từ xa.
 
 # III. Tiến hành mô phỏng cuộc tấn công và phân tích
 
-## 1. Trên máy kali, sử dụng hydra để tấn công brute force vào máy windows bằng dịch vụ rdp
+## 1. Trên máy kali, sử dụng hydra để tấn công brute force vào máy windows vào dịch vụ RDP
 
 - Cú pháp cơ bản của hydra
   `hydra [tùy_chọn] <dịch_vụ>://<target>`
@@ -43,7 +43,7 @@
 
 ## 2. Phân tích SOC
 
-### 1. DETECTION (Phát hiện)
+### 1. DETECTION
 
 - Phát hiện đăng nhập thất bại bất thường
   - `index=security_events EventCode=4625 Logon_Type IN(10, 3)`
@@ -70,15 +70,14 @@
   ```
   ![image.png](images/image%206.png)
   ⇒ Dấu hiệu brute-force
-  - Một IP (`192.168.60.10`)
-  - Thử nhiều lần với cùng / nhiều user
+  - Một IP `192.168.60.10` thử nhiều lần với cùng/nhiều user
 
-### 2. INVESTIGATION (Điều tra)
+### 2. INVESTIGATION
 
 - Xác nhận có đăng nhập bất thường thành công
   `index=security_events EventCode=4624 Logon_Type IN(10,3 )`
   ![image.png](images/image%207.png)
-- `log (Logon_Type=3)` **Xác thực** (network logon) → tạo token/phiên phụ trợ → **4624 Type 3**
+- `Logon_Type=3`: **Xác thực** → tạo token/phiên phụ trợ → **4624 Type 3**
   ```powershell
   12/21/2025 09:34:27.069 AM
   LogName=Security
@@ -155,7 +154,7 @@
   host = DESKTOP-NDBEF0Hsource = WinEventLog:Securitysourcetype = XmlWinEventLog:Security
 
   ```
-- `log (Logon_Type=10)` **Tạo phiên Remote Desktop** (remote interactive) → **4624 Type 10**
+- `Logon_Type=10`: **Tạo phiên Remote Desktop** → **4624 Type 10**
   ```powershell
   12/21/2025 09:34:29.504 AM
   LogName=Security

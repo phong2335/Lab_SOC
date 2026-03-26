@@ -1,31 +1,32 @@
 # Lab 0: Môi trường và công cụ
 
-## 0. Kiến thức nền tảng
+Cài đặt và cấu hình hệ thống SIEM bằng Splunk cùng với các công cụ như Sysmon.
+
+## 1. Kiến thức nền tảng
 
 - Sysmon (System Monitor) là công cụ của Microsoft Sysinternals (cài như một service) giúp ghi log chi tiết hành vi trên Windows vào Event Log.
   Sysmon thường ghi các sự kiện như:
   - Tạo process (Event ID 1)
   - Kết nối mạng (Event ID 3)
-  - Tạo file, registry, v.v. (tuỳ cấu hình)
+  - Tạo file, registry, v.v. 
 - Splunk Universal Forwarder (UF) là gì?
-  Splunk Universal Forwarder là một “agent nhẹ” cài trên máy cần giám sát (endpoint/server) để:
-  - Thu thập log (Windows Event Logs, file log, syslog…)
-  - Gửi log về Splunk Server/Indexer qua mạng (thường port 9997)
-- Splunk Enterprise là gì?
-  Splunk Enterprise là nền tảng trung tâm để:
-  - Nhận log (ingest)
+  Splunk Universal Forwarder là một “agent nhẹ” cài trên máy cần giám sát để:
+  - Thu thập log trên các máy
+  - Gửi log về Splunk Server qua mạng
+- Splunk Enterprise là nền tảng trung tâm để:
+  - Nhận log
   - Lưu trữ / index
   - Tìm kiếm & phân tích bằng SPL (Search Processing Language)
   - Dashboard, Alert, Report
 
-## 1. Cài đặt 4 máy ảo
+## 2. Cài đặt 4 máy ảo
 
 - Ubuntu Server 24.04.3
 - Kali linux 2025.4
 - Windows 10
 - Ubuntu desktop
 
-## 2. Cài đặt và cấu hình Splunk Enterprise trên Ubuntu Server
+## 3. Cài đặt và cấu hình Splunk Enterprise trên Ubuntu Server
 
 - Thiết lập ip tĩnh trên Ubuntu Server
   1. Xem file netplan:
@@ -56,6 +57,7 @@
 ### Bước 1:
 
 - tải file `.deb` Splunk Enterprise
+
   wget -O /tmp/splunk-10.0.2-e2d18b4767e9-linux-amd64.deb "[https://download.splunk.com/products/splunk/releases/10.0.2/linux/splunk-10.0.2-e2d18b4767e9-linux-amd64.deb](https://download.splunk.com/products/splunk/releases/10.0.2/linux/splunk-10.0.2-e2d18b4767e9-linux-amd64.deb)"
 
 ### Bước 2: Cài Splunk
@@ -107,7 +109,7 @@ Splunk Web → **Settings → Indexes → New Index**
 - `security_events`
 - `sysmon`
 
-## 3. Cài đặt Sysmon trên máy windows 10
+## 4. Cài đặt Sysmon trên máy windows 10
 
 - Bước 1: [https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon)
 - Bước 2: Tải thêm file cấu hình Sysmon (Sysmon config). Sysmon cần “config” để log đầy đủ và sạch (thường dùng **SwiftOnSecurity sysmon-config**). Tải file `sysmonconfig.xml` từ repo SwiftOnSecurity (GitHub)
@@ -122,7 +124,7 @@ Splunk Web → **Settings → Indexes → New Index**
 
 ![image.png](images/image%201.png)
 
-## 4. Cài & cấu hình Splunk Universal Forwarder trên Windows 10 (Victim)
+## 5. Cài & cấu hình Splunk Universal Forwarder trên Windows 10
 
 ### Bước 1: Cài UF
 
@@ -176,7 +178,7 @@ splunk add forward-server 192.168.60.20:9997 -auth <admin_user>:<admin_pass>
   cd "C:\Program Files\SplunkUniversalForwarder\bin"
   splunk restart
   ```
-- Lưu ý khi tải UF: để chế độ **Local System Account thì mới đủ quyền đọc** đủ quyền đọc log Event Viewer ở `Microsoft-Windows-Sysmon/Operational`
+- Lưu ý khi tải UF: để chế độ **Local System Account** thì mới đủ quyền đọc log Event Viewer ở `Microsoft-Windows-Sysmon/Operational`
 - Nếu lỡ để chế độ khác thì
 
   - Kiểm tra lại account đang chạy Splunk Forwarder:
@@ -199,12 +201,12 @@ splunk add forward-server 192.168.60.20:9997 -auth <admin_user>:<admin_pass>
     - `%SPLUNK_HOME%\etc\system\local\outputs.conf` , Dùng để:
       - cấu hình forward tới Splunk Indexer/Server (9997)
       - SSL, load balance, multiple indexers…
-    - `%SPLUNK_HOME%\etc\system\local\inputs.conf` , **Dùng để:**
+    - `%SPLUNK_HOME%\etc\system\local\inputs.conf` , Dùng để:
       - monitor file/folder
       - thu Windows Event Logs (WinEventLog)
       - đặt `index`, `sourcetype`, `host`, whitelist…
 
-## 5. Cài đặt và cấu hình Splunk Universal Forwarder trên Ubuntu (desktop)
+## 6. Cài đặt và cấu hình Splunk Universal Forwarder trên Ubuntu (desktop)
 
 - Tải file `.deb` từ trang Splunk
 - Cài gói `.deb`
@@ -236,7 +238,7 @@ splunk add forward-server 192.168.60.20:9997 -auth <admin_user>:<admin_pass>
   - log của forwarder nằm ở: `/opt/splunkforwarder/var/log/splunk/...`
   - lệnh splunk nằm ở: `/opt/splunkforwarder/bin/splunk`
 
-## 6. Verify dữ liệu vào Splunk
+## 7. Verify dữ liệu vào Splunk
 
 Trên Splunk Web chạy:
 

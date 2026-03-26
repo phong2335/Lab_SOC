@@ -68,29 +68,29 @@ sudo systemctl enable --now suricata
 
 - Xem interface nào có IP `192.168.60.40`:
 
-```bash
-ip -br a
-```
+  ```bash
+  ip -br a
+  ```
 
-Giả sử interface là `ens33`
+  Giả sử interface là `ens33`
 
 - Sửa file mặc định (Ubuntu hay dùng):
 
-```bash
-sudo nano /etc/default/suricata
-```
+  ```bash
+  sudo nano /etc/default/suricata
+  ```
 
 - Tìm `IFACE=` và đặt đúng:
 
-```bash
-IFACE=ens33
-```
+  ```bash
+  IFACE=ens33
+  ```
 
 - Restart:
 
-```bash
-sudo systemctl restart suricata
-```
+  ```bash
+  sudo systemctl restart suricata
+  ```
 
 - Nếu không chạy được có thể phải sửa cả interface trong `/etc/suricata/suricata.yaml`
   Tìm phần `af-packet:` (hoặc `pcap:`), sửa interface cho đúng với máy
@@ -104,42 +104,42 @@ EVE JSON là định dạng log “chính” của Suricata.
 
 - Mở config:
 
-```bash
-sudo nano /etc/suricata/suricata.yaml
-```
+  ```bash
+  sudo nano /etc/suricata/suricata.yaml
+  ```
 
 - Tìm phần:
 
-```yaml
-outputs:
--eve-log:
-enabled:yes
-filetype:regular
-filename:/var/log/suricata/eve.json
-```
+  ```yaml
+  outputs:
+  -eve-log:
+  enabled:yes
+  filetype:regular
+  filename:/var/log/suricata/eve.json
+  ```
 
 - Trong `eve-log`, đảm bảo có bật (hoặc thêm) các types cơ bản: `alert`, `http` , `dns` , `tls`, `flow`
 
-```yaml
-types:
--alert
--http
--dns
--tls
--flow
-```
+  ```yaml
+  types:
+  -alert
+  -http
+  -dns
+  -tls
+  -flow
+  ```
 
 - Restart Suricata:
 
-```bash
-sudo systemctl restart suricata
-```
+  ```bash
+  sudo systemctl restart suricata
+  ```
 
 - Kiểm tra file log có sinh JSON:
 
-```bash
-sudo tail -n 5 /var/log/suricata/eve.json | jq .
-```
+  ```bash
+  sudo tail -n 5 /var/log/suricata/eve.json | jq .
+  ```
 
 ### Bước 4: Cài ruleset (ET Open) để có alert “đúng IDS”
 
@@ -159,41 +159,41 @@ sudo journalctl -u suricata --no-pager -n 50
 
 - Tạo inputs.conf ( nếu đã có thì thôi)
 
-```bash
-sudo mkdir -p /opt/splunkforwarder/etc/system/local
-sudo nano /opt/splunkforwarder/etc/system/local/inputs.conf
-```
+  ```bash
+  sudo mkdir -p /opt/splunkforwarder/etc/system/local
+  sudo nano /opt/splunkforwarder/etc/system/local/inputs.conf
+  ```
 
 - Dán:
 
-```
-[monitor:///var/log/suricata/eve.json]
-disabled =false
-index = suricata
-sourcetype = suricata:eve
-```
+  ```
+  [monitor:///var/log/suricata/eve.json]
+  disabled =false
+  index = suricata
+  sourcetype = suricata:eve
+  ```
 
 - Restart UF:
 
-```bash
-sudo /opt/splunkforwarder/bin/splunk restart
-```
+  ```bash
+  sudo /opt/splunkforwarder/bin/splunk restart
+  ```
 
 ### Bước 6: Đảm bảo UF đọc được file log (quyền truy cập)
 
 - Kiểm tra quyền file:
 
-```bash
-ls -l /var/log/suricata/eve.json
-```
+  ```bash
+  ls -l /var/log/suricata/eve.json
+  ```
 
 - Nếu UF không đọc được, cách nhanh gọn (lab) là thêm quyền đọc cho group `splunk` hoặc add user splunk vào group `suricata`/`adm` (tùy máy). Ví dụ:
 
-```bash
-sudo usermod -aG adm splunk
-sudo systemctl restart suricata
-sudo /opt/splunkforwarder/bin/splunk restart
-```
+  ```bash
+  sudo usermod -aG adm splunk
+  sudo systemctl restart suricata
+  sudo /opt/splunkforwarder/bin/splunk restart
+  ```
 
 # III. Thực hiện tấn công mạng từ máy Kali
 
@@ -217,7 +217,7 @@ nmap -sS -T4 -p- 192.168.60.40
 - Có thể vừa scan vừa mở `sudo tail -f /var/log/suricata/eve.json` để xem log đổ vào trực
   tiếp.
 
-![image.png](images/image%201.png)
+  ![image.png](images/image%201.png)
 
 → Tìm thấy cổng 22 đang mở
 
@@ -291,9 +291,9 @@ nikto -h http://192.168.60.40
 
 - SPL: `index=suricata`
 
-![image.png](images/image%203.png)
+  ![image.png](images/image%203.png)
 
-→ có rất nhiều log scan một ip nhưng nhiều cổng
+  → có rất nhiều log scan một ip nhưng nhiều cổng
 
 - Raw log
   ```powershell

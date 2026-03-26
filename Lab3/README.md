@@ -2,7 +2,7 @@
 
 # I. Mục tiêu
 
-- Mục tiêu của lab giám sát và phát hiện các hành vi liên quan đến thay đổi Windows registry liên quan đến cơ chế persistence, Defense Evasion, Anti-forensics. Cụ thể, bài lab tập trung vào việc phát hiện hành vi thêm registry value độc hại vào các Run/RunOnce key, sửa và xóa các registry quan trọng và tạo service thông qua registry**.** Bài lab sử dụng Sysmon để ghi log và Splunk để giám sát và phát hiện hành vi này.
+- Mục tiêu của lab giám sát và phát hiện các hành vi liên quan đến thay đổi Windows registry liên quan đến cơ chế persistence, Defense Evasion, Anti-forensics. Cụ thể, bài lab tập trung vào việc phát hiện hành vi thêm registry value độc hại vào các Run/RunOnce key, sửa và xóa các registry quan trọng và tạo service thông qua registry. Bài lab sử dụng Sysmon để ghi log và Splunk để giám sát và phát hiện hành vi này.
 
 # II. Kiến thức nền
 

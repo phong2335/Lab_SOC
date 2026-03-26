@@ -1,6 +1,6 @@
-# Lab_SOC
+# Triển khai hệ thống SIEM và mô phỏng quy trình Giám sát, Điều tra các mối đe dọa bảo mật
 
-- [Lab 0](./Lab0/): Môi trường và công cụ
+- [Lab 0](./Lab0/): Xây dựng môi trường giả lập và cài đặt Splunk Enterprise
 
 ---
 
@@ -33,6 +33,7 @@
 ---
 
 - [Lab 8](./Lab8/): Theo dõi tính Integrity cho các thư mục nhạy cảm trên Windows
+
 ---
 
 - [Lab 9](./Lab9/): Theo dõi tính Integrity cho các thư mục nhạy cảm trên Linux

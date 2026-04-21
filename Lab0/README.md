@@ -4,11 +4,6 @@ Cài đặt và cấu hình hệ thống SIEM bằng Splunk cùng với các cô
 
 ## 1. Kiến thức nền tảng
 
-- Sysmon (System Monitor) là công cụ của Microsoft Sysinternals (cài như một service) giúp ghi log chi tiết hành vi trên Windows vào Event Log.
-  Sysmon thường ghi các sự kiện như:
-  - Tạo process (Event ID 1)
-  - Kết nối mạng (Event ID 3)
-  - Tạo file, registry, v.v. 
 - Splunk Universal Forwarder (UF) là gì?
   Splunk Universal Forwarder là một “agent nhẹ” cài trên máy cần giám sát để:
   - Thu thập log trên các máy
@@ -18,6 +13,11 @@ Cài đặt và cấu hình hệ thống SIEM bằng Splunk cùng với các cô
   - Lưu trữ / index
   - Tìm kiếm & phân tích bằng SPL (Search Processing Language)
   - Dashboard, Alert, Report
+- Sysmon (System Monitor) là công cụ của Microsoft Sysinternals (cài như một service) giúp ghi log chi tiết hành vi trên Windows vào Event Log.
+  Sysmon thường ghi các sự kiện như:
+  - Tạo process (Event ID 1)
+  - Kết nối mạng (Event ID 3)
+  - Tạo file, registry,...
 
 ## 2. Cài đặt 4 máy ảo
 
@@ -51,7 +51,7 @@ Cài đặt và cấu hình hệ thống SIEM bằng Splunk cùng với các cô
               - 8.8.8.8
               - 1.1.1.1
     ```
-  1. Áp dụng
+  3. Áp dụng
   - `netplan apply`
 
 ### Bước 1:
@@ -85,8 +85,8 @@ sudo /opt/splunk/bin/splunk enable boot-start
 ### Bước 5: Mở port cần thiết
 
 ```bash
-sudo ufw allow 8000/tcp# Splunk Web
-sudo ufw allow 9997/tcp# Receiving from Forwarder
+sudo ufw allow 8000/tcp #Splunk Web
+sudo ufw allow 9997/tcp #Receiving from Forwarder
 sudo ufw enable
 sudo ufw status
 ```
@@ -128,7 +128,7 @@ Splunk Web → **Settings → Indexes → New Index**
 
 ### Bước 1: Cài UF
 
-Tải **Splunk Universal Forwarder for Windows** trên Slplunk download và cài như bình thường.
+Tải **Splunk Universal Forwarder for Windows** trên Splunk download và cài như bình thường.
 
 ### Bước 2: Cấu hình gửi về Splunk Server (192.168.60.20:9997)
 
@@ -154,23 +154,23 @@ splunk add forward-server 192.168.60.20:9997 -auth <admin_user>:<admin_pass>
   ```
   [WinEventLog://Security]
   disabled =0
-  index = security_events
-  sourcetype = XmlWinEventLog:Security
+  index = win_sec
+  sourcetype = WinEventLog:Security
 
   [WinEventLog://System]
   disabled =0
-  index = windows_system_logs
-  sourcetype = XmlWinEventLog:System
+  index = win_sys
+  sourcetype = WinEventLog:System
 
   [WinEventLog://Application]
   disabled =0
-  index = windows_system_logs
-  sourcetype = XmlWinEventLog:Application
+  index = win_app
+  sourcetype = WinEventLog:Application
 
   [WinEventLog://Microsoft-Windows-Sysmon/Operational]
   disabled =0
   index = sysmon
-  sourcetype = XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
+  sourcetype = WinEventLog:Microsoft-Windows-Sysmon/Operational
   ```
 
 - Restart UF
@@ -180,7 +180,6 @@ splunk add forward-server 192.168.60.20:9997 -auth <admin_user>:<admin_pass>
   ```
 - Lưu ý khi tải UF: để chế độ **Local System Account** thì mới đủ quyền đọc log Event Viewer ở `Microsoft-Windows-Sysmon/Operational`
 - Nếu lỡ để chế độ khác thì
-
   - Kiểm tra lại account đang chạy Splunk Forwarder:
 
   ```powershell
@@ -227,12 +226,12 @@ splunk add forward-server 192.168.60.20:9997 -auth <admin_user>:<admin_pass>
   ```
 - Add các log cần theo dõi
   ```powershell
-  sudo /opt/splunkforwarder/bin/splunk add monitor /var/log/auth.log -sourcetype linux_secure -index linux_logs
+  sudo /opt/splunkforwarder/bin/splunk add monitor /var/log/auth.log -sourcetype syslog -index linux_auth
   sudo /opt/splunkforwarder/bin/splunk restart
   ```
 - `$SPLUNK_HOME` của UF và các file quan trọng
   - **`$SPLUNK_HOME = /opt/splunkforwarder`**
-  - file config nằm ở: `/opt/splunkforwarder/etc/...`
+  - file config nằm ở: `/opt/splunkforwarder/etc/system/local`
     - `outputs.conf` : dùng để khai báo gửi đi đâu (Forwarding), Splunk Server nhận log
     - `inputs.conf` : để đọc cái gì, monitor file/thư mục log, đặt sourcetype, index, host,…
   - log của forwarder nằm ở: `/opt/splunkforwarder/var/log/splunk/...`

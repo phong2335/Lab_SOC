@@ -105,10 +105,6 @@ Splunk Web → **Settings → Forwarding and receiving → Configure receiving �
 
 Splunk Web → **Settings → Indexes → New Index**
 
-- `windows_system_logs`
-- `security_events`
-- `sysmon`
-
 ## 4. Cài đặt Sysmon trên máy windows 10
 
 - Bước 1: [https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon)
@@ -144,6 +140,8 @@ splunk add forward-server 192.168.60.20:9997 -auth <admin_user>:<admin_pass>
 > Lưu ý: <admin_user>:<admin_pass> ở đây là user của UF local, không nhất thiết phải giống Splunk Server.
 
 ### Bước 3: Cấu hình thu thập Windows Event Logs
+
+- Tạo các index trên Splunk web: win_sec, win_sys, win_app, sysmon.
 
 - Tạo/sửa file:
 
@@ -226,7 +224,7 @@ splunk add forward-server 192.168.60.20:9997 -auth <admin_user>:<admin_pass>
   ```
 - Add các log cần theo dõi
   ```powershell
-  sudo /opt/splunkforwarder/bin/splunk add monitor /var/log/auth.log -sourcetype syslog -index linux_auth
+  sudo /opt/splunkforwarder/bin/splunk add monitor /var/log/auth.log -sourcetype syslog -index nix_auth
   sudo /opt/splunkforwarder/bin/splunk restart
   ```
 - `$SPLUNK_HOME` của UF và các file quan trọng
